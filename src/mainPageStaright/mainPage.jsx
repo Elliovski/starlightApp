@@ -13,7 +13,7 @@ function MainPage(){
     return <div className= "mainPage  h-auto bg-black ">
     <HeaderJSX />
     <HeroJSX nameOfWantedMovie = "Avengers: Endgame"  />
-    <SearchBar widthOfSection = "100%" heightOfSection = "100px" /> 
+    <SearchBar widthOfSection = "100%" heightOfSection = "auto" /> 
     
     <OneRecomendedSectionJSX NameOfSection = "Action" />
     <OneRecomendedSectionJSX NameOfSection = "Adventure" />

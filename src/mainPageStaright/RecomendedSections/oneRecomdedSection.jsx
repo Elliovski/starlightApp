@@ -5,7 +5,7 @@ import { Navigation } from 'swiper/modules'; // ✅ Correct for v10+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import App from "../../App";
-import { useState, useEffect ,useRef  } from "react";
+import { useState, useEffect ,useRef, use  } from "react";
 import "./oneRecomendedSection.css";
 import BuyingPage from "../../BuyingAll/BuyingPage";
 import { globalChangePage, globalStoreMovieData } from "../../App";
@@ -46,9 +46,27 @@ function OneRecomendedSectionJSX({ NameOfSection }) {
 
 }, [moviesOfSection, NameOfSection]);
 
+function handleScreensizeWidth(value){
+    let [screenSize , setScreenSize] = useState(window.innerWidth)
+    let [functionValue , setfunctionValue] = useState(4)
+    useEffect(() => {
+        const handleScreenResize = () => {setScreenSize(window.innerWidth)}
+        window.addEventListener('resize' , handleScreenResize)
+        return () => window.removeEventListener('resize' , handleScreenResize)
+    },[])
+
+    useEffect(() => {
+        if (screenSize < 640){setfunctionValue(1)}
+        else if (screenSize < 1024){setfunctionValue(2)}
+        else {setfunctionValue(4)}
+    },[screenSize])
+
+    return(functionValue)
+}
+
 const swiperRef = useRef(null);
 const [showNavigation, setShowNavigation] = useState(true);
-let slidesPerView = 4
+let slidesPerView = handleScreensizeWidth()
 
     return (
         <section className="OneRecomendedSectionCss">
@@ -66,17 +84,19 @@ let slidesPerView = 4
                 {movieData.map((movie, index) => (
                     <SwiperSlide key={index} className="OneRecomendeMovie-li OneRecomendeMovie-li-js" 
                     onClick={() => { globalChangePage("BuyingPage"); globalStoreMovieData(movie); }}>
-                        <div className="OneRecomendeMovie-container-div">
-                            <p className="OneRecomendeMoviePlot">{movie.Plot}</p>
-                            <div className="h-80">
+                        <div className="OneRecomendeMovie-container-div card flex-col">
+                            <div className="h-full w-full">
                                 <img src={movie.Poster} alt={movie.Title} className="movie-poster w-full h-full " />
                             </div>
-                            <div className="detailsOfRecomendedMovie">
-                                <h1>{movie.Title}</h1>
-                                <div className="score-and-type-div">
-                                    <p className="text-amber-300">MBA({movie.Metascore}⭐)</p>
-                                    <p className="text-white">{movie.Genre}</p>
-                                    <p className="text-amber-300 mt-5">Buy here 👇</p>
+                            <div className='card__content'>
+                                <p className="OneRecomendeMoviePlot">{movie.Plot}</p>
+                                <div className="detailsOfRecomendedMovie">
+                                    <h1>{movie.Title}</h1>
+                                    <div className="score-and-type-div">
+                                        <p className="text-amber-300">MBA({movie.Metascore}⭐)</p>
+                                        <p className="text-white">{movie.Genre}</p>
+                                        <p className="text-amber-300 mt-5">Buy here 👇</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

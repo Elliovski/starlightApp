@@ -33,11 +33,11 @@ function SearchBar({widthOfSection ,heightOfSection}){
 
 
     useEffect(() => {
-        const myApiKey = 'b627d25f'
+        
         const fetchMovies = async () => {
             try {
                 const requests = moviesOfSection.map((nameOfMovie) =>
-                    fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(nameOfMovie)}&apikey=${myApiKey}`)
+                    fetch(`http://localhost:5000/api/movie?title=${encodeURIComponent(nameOfMovie)}`)
                 .then((response) => response.json())
             );
             
@@ -52,23 +52,38 @@ function SearchBar({widthOfSection ,heightOfSection}){
 
 
 }, [moviesOfSection]);
-    let  borderRadius = heightOfSection
+    let [widthOfSearc , setWidthOfSearch] = useState(false)
+
+
+
+
  
-    return <section className=' flex items-center justify-center mb-20' style={{width : widthOfSection, height : heightOfSection}}>
-        <div className="bg-white flex items-center relative" style={{width : "90%", height : "50%" , borderRadius : borderRadius}}>
-            <input type="text" placeholder="Search for movies" onChange={handleSearchInput} className="searchbar w-full h-full pl-10   flex  focus:outline-0 placeholder:leading-none text-2xl" style={{borderRadius  : borderRadius ,}}/>
-            <ul className="searchSuggestionsUl absolute top-10 left-0 pl-5 pr-5 mt-2 bg-white border-red-500" style={{width : `${widthOfSection}`}}>
-                {searchQuery !== 0 && searchedMovies.map((suggestion , index) => (
-                    <li key={index} className="border-red-500" onClick={() => { globalChangePage("BuyingPage"); globalStoreMovieData(suggestion); }}>
-                        {suggestion.Title}
-                    </li>
-                ))}
-            </ul>
-            <button className="searchbar-button  w-25 h-full flex items-center justify-center " style={{borderTopRightRadius : borderRadius , borderBottomRightRadius : borderRadius}}>
-            <img src={search} alt="" className="w-10 h-10"/>
-            </button>
+    return <section className='flex flex-col  items-center justify-center  min-h-[100px]' >
+        <div className={`bg-white items-center relative transition-all duration-500  flex flex-col focus-within:w-[60%] min-w-[400px]  h-auto rounded-l-full rounded-r-full  ${widthOfSearc ? "w-full" : 'w-20'}`}>
+            <div className="upperSearch-div flex  w-full  rounded-l-full rounded-r-full">
+                <input type="text" placeholder="Search for movies" onChange={handleSearchInput} className={`searchbar w-full  pl-5  flex  focus:outline-0 placeholder:leading-none text-2xl rounded-l-full rounded-r-full`} />
+                <button className="searchbar-button  w-25 h-full flex items-center justify-center  rounded-r-full " >
+                <img src={search} alt="" className="w-10 h-10"/>
+                </button>
+            </div>
 
         </div>
+            <ul className="searchSuggestionsUl  bg-white border-red-500" style={{width : "60%", minWidth : "500px" }}>
+                    {searchQuery !== 0 && searchedMovies.map((suggestion, index) => (
+                <li
+                key={index}
+                className={`border-red-500 border-t-2 pl-5 cursor-pointer opacity-0 animate-fadeIn hover:bg-red-500 hover:text-white`}
+                style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
+                onClick={() => {
+                    globalChangePage("BuyingPage");
+                    globalStoreMovieData(suggestion);
+                }}
+                >
+                {suggestion.Title}
+                </li>
+            ))}
+            </ul>
+
     </section>
 }
 
