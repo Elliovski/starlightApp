@@ -76,6 +76,8 @@ const [chosenCinema, setChosenCinema] = useState(() => {
 
 function CreatingSeatsFunction(){
 
+  //localStorage.removeItem('MovieTheatrData')
+
   const [movieTheatrData, setMovieTheatrData] = useState(() => {
     const storedData =  localStorage.getItem("MovieTheatrData");
     
@@ -1001,19 +1003,22 @@ function CreatingSeatsFunction(){
   useEffect(() => {
     if (movieTheatrData) {
       localStorage.setItem("MovieTheatrData", JSON.stringify(movieTheatrData));
+      
     }
   }, [movieTheatrData]); // Runs when movieTheatrData changes
 
   
   
   let AllSeats = movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["AllSeats"]
-  let indexesOfTakenSeats = movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["indexesOfTakenSeats"]
+  let [indexesOfTakenSeats , changeIndexesOfTakenSeat ] = useState(movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["indexesOfTakenSeats"])
   let [indexesOfYourSeats , changeIndexsesOfYourSeat ]  = useState((movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["indexesOfYourSeats"])) || []
 
   useEffect(() => {
     localStorage.setItem("MovieTheatrData", JSON.stringify(movieTheatrData));
     console.log('indexesOfYourSeats')
     console.log(indexesOfYourSeats)
+    console.log("indexesOfTakenSeats")
+    console.log(indexesOfTakenSeats)
     
   }, [movieTheatrData]);
 
@@ -1107,7 +1112,7 @@ function BuyingPage(){
   function MapComponent() {
     
     
-    const position = JSON.parse(localStorage.getItem("MovieTheatrData")).avalibleMovieTheatersForEachMovie[MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"].cordinates ||[40.2975813454084, -79.50509166222278]; // Latitude and Longitude for the center of the map
+    const position = JSON.parse(localStorage.getItem("MovieTheatrData"))?.avalibleMovieTheatersForEachMovie[MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"].cordinates ||[40.2975813454084, -79.50509166222278]; // Latitude and Longitude for the center of the map
     const zoomLevel = 18; // Zoom level
 
     return (

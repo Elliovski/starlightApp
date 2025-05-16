@@ -8,21 +8,24 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css"; // Import Leaflet styles
 
 function PayingPage(){
+  //localStorage.removeItem('boughtDetailedMovieTicketsData')
   
-    
+  
+  
+  
     console.log('JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON"))')
     console.log(JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON")))
     let storedData = localStorage.getItem("PageData")
     let MovieData = storedData ? JSON.parse(storedData).movie : null;
     
-
-const [movieTheatrData, setMovieTheatrData] = useState(() => {
-    const storedData =  localStorage.getItem("MovieTheatrData");
+    
+    const [movieTheatrData, setMovieTheatrData] = useState(() => {
+      const storedData =  localStorage.getItem("MovieTheatrData");
     return  JSON.parse(localStorage.getItem("MovieTheatrData")) })
 
   
-  
-  let [indexesOfYourSeats , changeIndexsesOfYourSeat ]  = useState((movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "Cine Magic: Film Heaven"]["indexesOfYourSeats"])) || []
+  let [indexesOfYourSeats , changeIndexsesOfYourSeat ]  = useState((movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["indexesOfYourSeats"])) || []
+  let [indexesOfTakenSeats , changeIndexesOfTakenSeat ] = useState((movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["indexesOfTakenSeats"])) || []
   let [detailedMovieTicketsData ,ChangedetailedMovieTicketsData] = useState(JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON")) || [])
   let [boughtDetailedMovieTicketsData ,ChangeBoughtetailedMovieTicketsData] = useState(JSON.parse(localStorage.getItem("boughtDetailedMovieTicketsData")) || [])
   
@@ -61,15 +64,32 @@ const [movieTheatrData, setMovieTheatrData] = useState(() => {
             
     }
     function buyAllTickets(){
+
       ChangeBoughtetailedMovieTicketsData((prev) => [...prev, ...detailedMovieTicketsData])
       ChangedetailedMovieTicketsData([])
       changeIndexsesOfYourSeat([])
+      const newlyBoughtSeatIds = detailedMovieTicketsData.map(ticket => ticket.seatId);
 
-      const chosenCinema = String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "Cine Magic: Film Heaven";
-      const updatedMovieTheatrData = { ...movieTheatrData }; // shallow copy
-      updatedMovieTheatrData.avalibleMovieTheatersForEachMovie[MovieData.Title][chosenCinema].indexesOfYourSeats = []
 
+    const updatedTakenSeats = [...indexesOfTakenSeats, ...newlyBoughtSeatIds];
+
+    
+    
+    changeIndexesOfTakenSeat(updatedTakenSeats);
+    
+    const chosenCinema = String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "Cine Magic: Film Heaven";
+    const updatedMovieTheatrData = { ...movieTheatrData }; // shallow copy
+    updatedMovieTheatrData.avalibleMovieTheatersForEachMovie[MovieData.Title][chosenCinema].indexesOfYourSeats = []
+    updatedMovieTheatrData.avalibleMovieTheatersForEachMovie[MovieData.Title][chosenCinema].indexesOfTakenSeats = updatedTakenSeats
+    
+    
+    
     setMovieTheatrData(updatedMovieTheatrData);
+
+    console.log('updatedTakenSeats')
+    console.log(updatedTakenSeats)
+    console.log('indexesOfTakenSeats')
+    console.log(indexesOfTakenSeats)
       }
     
       let [visibilityOfDetailedInfoPage ,setvisibilityOfDetailedInfoPage ] = useState(false)
