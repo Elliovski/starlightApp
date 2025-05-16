@@ -1,0 +1,93 @@
+.ticket {
+    display: flex;
+    background-color: #d61212;
+    color: white;
+    width: 490px;
+    max-height: 168px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+  
+  .ticket-left img {
+    width: 105px;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .ticket-right {
+      padding: 14px;
+      flex: 0.935;
+      position: relative;
+    }
+  .ticket-right p {
+    font-size: 12px;
+  }
+
+    
+  .ticket-details {
+    display: flex;
+    justify-content: space-between;
+    max-width: 225px;
+    margin: 8px 0;
+  }
+  
+  .detail {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 56px;
+    font-size: 11px;
+  }
+  
+  .ticket-perforation {
+    position: absolute;
+    top: 0;
+    right: 100px;
+    width: 2px;
+    height: 100%;
+    background: repeating-linear-gradient(
+      to bottom,
+      white,
+      white 5px,
+      transparent 5px,
+      transparent 10px
+    );
+  }
+
+  .ticket-perforationIButton {
+    position: absolute;
+    top: 0;
+    right: 100px;
+    width: 2px;
+    height: 100%;
+    background: repeating-linear-gradient(
+      to bottom,
+      white,
+      white 5px,
+      transparent 5px,
+      transparent 10px
+    );
+  }
+  
+  .ticket-tab {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background-color: #d61212;
+    
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    
+  }
+  .creditCardInfo-ol ::placeholder {
+    color: white;
+    font-size: 30px;
+  }
+  .creditCardInfo-ol ::-webkit-inner-spin-button ,
+  .creditCardInfo-ol ::-webkit-outher-spin-button {
+    -webkit-appearance: none;
+  }

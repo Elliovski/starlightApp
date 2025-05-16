@@ -1,0 +1,80 @@
+import { useEffect , useState } from "react"
+import pageData from "./myJSON.json"
+import MainPage from "./mainPageStaright/mainPage"
+import BuyingPage from "./BuyingAll/BuyingPage"
+import PayingPage from "./payingAll/payingAll"
+//import movieTheatrDataFunction from "./MovieTheaters"
+
+let globalChangePage ; // first decleare it so we can export it globally
+let globalStoreMovieData ;//if inside useEffect , it will only exist inside useEffect
+function App() {
+  //let movieTheatrData = movieTheatrDataFunction()
+
+
+  //movieTheatrData[0].avalibleMovieTheatersForEachMovie["Avengers+Endgame"]["Cine Magic: Film Heaven"]["indexesOfYourSeats"].push(3)
+  
+
+
+  let [page , changePage] = useState("MainPage") //by default , Our page data is "MainPage" . We use this data similar to JSON
+  let [pageData, setPageData] = useState(() => {
+    return JSON.parse(localStorage.getItem("PageData")) || { pageJSOn: "MainPage", movie: null ,
+     };
+  });
+  
+  
+
+
+      
+  
+
+  function StorePageData(page) {
+    setPageData((prevData) => {
+      const updatedData = { ...prevData, pageJSOn: page };
+      setPageData(updatedData)
+      localStorage.setItem("PageData", JSON.stringify(updatedData)); // Save to localStorage
+      return updatedData;
+    })
+  
+
+
+  }
+  
+
+  function StoreMovieData(movie) {
+    
+    setPageData((prevData) => {
+      const updatedData = { ...prevData, movie };
+      localStorage.setItem("PageData", JSON.stringify(updatedData)); // Save to localStorage
+      console.log("Updated PageData.movie:", movie);
+
+      return updatedData;
+      
+    })}
+
+    
+      
+  globalChangePage = StorePageData // so we can export 
+  globalStoreMovieData = StoreMovieData
+
+
+  //console.log(localStorage.getItem("PageData"))
+  //console.log(page)
+  const pages = {
+    MainPage: MainPage, //this is component . You cant use string as component
+    BuyingPage: BuyingPage,
+    PayingPage : PayingPage
+  }; // we use this to see which compenent the PageComponent becomes
+
+
+
+  let PageComponent = pages[pageData.pageJSOn] || MainPage; // Default to MainPage if invalid
+  
+
+
+  
+
+  return <PageComponent />; //  Is used in main.jsx
+  
+}
+export {globalChangePage , globalStoreMovieData} 
+export default App

@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+
+:root {
+    --color-signature: #ff0000;
+  }
+
+body {font-family:'Courier New', Courier, monospace}
+body {cursor: default;}
+button { cursor: pointer;}

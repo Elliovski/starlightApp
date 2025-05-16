@@ -1,0 +1,76 @@
+.OneRecomendedSectionCss {
+    padding: 0px 50px 0px 50px;
+    width: auto;
+    height: auto;
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.OneRecomendedSectionCss h1{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 20px 0px;
+    font-size: 20px;
+}
+/* REMOVE grid here */
+.RecomendedMoviesUlCss {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 50px;
+}
+
+  /* Fix arrow visibility */
+.swiper-button-next,
+.swiper-button-prev {
+    color: red;
+    background-color: rgb(0, 0, 0);
+    padding: 10px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    z-index: 10;
+  }
+  
+
+
+
+.OneRecomendeMovie-li{
+    position: relative;
+    display: flex;
+    flex-direction:column;
+    position: relative;
+    height: 500px;
+    
+    
+    border: solid #ff0000 2px;
+}
+
+.OneRecomendeMoviePlot{
+    color: white;
+    font-size: 0px;
+    position: absolute;
+}
+.OneRecomendeMovie-container-div{
+    position: relative;
+}
+.OneRecomendeMovie-container-div:hover .movie-poster{
+    opacity: 30%;
+}
+.OneRecomendeMovie-container-div:hover .OneRecomendeMoviePlot{
+    font-size: 10px;
+    opacity: 100%;
+    
+}
+.detailsOfRecomendedMovie{
+    background-color: black;
+}
+.detailsOfRecomendedMovie h1{
+    color: white;
+    font-weight: 700;
+}
+.score-and-type-div{
+    padding-left: 10%;
+    padding-right: 10%;
+    }
+
