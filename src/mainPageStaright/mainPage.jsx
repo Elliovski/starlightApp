@@ -4,7 +4,7 @@ import FooterJSX from "../FooterAll/Footer"
 import SearchBar from "./Main Search/Searchbar"
 import OneRecomendedSectionJSX from "./RecomendedSections/oneRecomdedSection"
 
-//import GetMovieApiJSX from "../GetMovieApi"
+
 
 
 function MainPage(){

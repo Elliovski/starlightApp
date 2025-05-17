@@ -4,8 +4,8 @@ function GetMovieApiJSX({nameOfWantedMovie}) {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    const myApiKey = "b627d25f";
-    const url = `http://www.omdbapi.com/?t=${nameOfWantedMovie}&apikey=${myApiKey}`;
+    
+    const url =`http://localhost:5000/api/movie?title=${encodeURIComponent(nameOfWantedMovie)}`;
 
     fetch(url)
       .then((response) => response.json())

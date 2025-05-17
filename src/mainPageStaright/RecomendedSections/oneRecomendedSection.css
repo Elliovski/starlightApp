@@ -111,7 +111,7 @@
   padding: 20px;
   box-sizing: border-box;
   
-   background-color: rgba(0, 0, 0, 0.8); /* black with 60% opacity */
+   background-color: rgba(0, 0, 0, 1); /* black with 60% opacity */
   transform: rotateX(-90deg);
   transform-origin: bottom;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
