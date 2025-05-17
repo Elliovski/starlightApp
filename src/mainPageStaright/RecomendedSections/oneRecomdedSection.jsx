@@ -89,10 +89,10 @@ let slidesPerView = handleScreensizeWidth()
                                 <img src={movie.Poster} alt={movie.Title} className="movie-poster w-full h-full " />
                             </div>
                             <div className='card__content'>
-                                <p className="OneRecomendeMoviePlot">{movie.Plot}</p>
                                 <div className="detailsOfRecomendedMovie">
                                     <h1>{movie.Title}</h1>
                                     <div className="score-and-type-div">
+                                        
                                         <p className="text-amber-300">MBA({movie.Metascore}⭐)</p>
                                         <p className="text-white">{movie.Genre}</p>
                                         <p className="text-amber-300 mt-5">Buy here 👇</p>
