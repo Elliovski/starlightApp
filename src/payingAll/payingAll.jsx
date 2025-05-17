@@ -148,7 +148,7 @@ function PayingPage(){
           <h2 className="text-1xl">{detailedMovieData.Title}</h2>
           <div className="ticket-details">
             <div className="detail flex items-center flex-col"><strong>HALL</strong>B</div>
-            <div className="detail flex items-center flex-col"><strong>ROW</strong>10</div>
+            <div className="detail flex items-center flex-col"><strong>COLUMN</strong>{detailedMovieData.column}</div>
             <div className="detail flex items-center flex-col"><strong>SEAT</strong>{detailedMovieData.seatId}</div>
           </div>
           <p><strong>{detailedMovieData.movieALLdata.Released}</strong> &nbsp;&nbsp;&nbsp; {detailedMovieData.movieALLdata.Runtime}</p>
@@ -189,7 +189,7 @@ function PayingPage(){
               {iButtonInfo?.movieALLdata?.Rated || "Loading..."}
             </p>
             <p className="text-2xl text-white">{iButtonInfo.cinema}</p>
-            <p className="text-2xl text-white">Row 10</p>
+            <p className="text-2xl text-white">Column {iButtonInfo.column}</p>
             <p className="text-2xl text-white">Seat : {iButtonInfo.seatId}</p>
             <p className="text-2xl text-white">{iButtonInfo.street}</p>
             <div className="ticket-perforationIButton" ></div>
@@ -202,8 +202,8 @@ function PayingPage(){
   <MapContainer
     center={iButtonInfo.coordinates}
     zoom={18}
-    scrollWheelZoom={false}
-    className="w-full h-full"
+    scrollWheelZoom={true}
+    className="w-11/12 h-64"
   >
     <TileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

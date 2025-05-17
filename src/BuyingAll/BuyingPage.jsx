@@ -1,3 +1,4 @@
+import './BuyingPage.css'
 import HeaderJSX from "../headerAll/header"
 import FooterJSX from "../FooterAll/Footer"
 import { globalChangePage } from "../App"
@@ -1036,10 +1037,12 @@ function CreatingSeatsFunction(){
   
   function choosingSeatFunction(e){
     const seatId = parseInt(e.target.id); // id is a string, convert to number
+    const column = parseInt(e.target.dataset.column); // id is a string, convert to number
     let newDetailedMovieTicketsOBject = {
       Poster :  MovieData.Poster ,
       Title : MovieData.Title,
       seatId : seatId,
+      column : column ,
       cinema :  String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15" ,
       coordinates : JSON.parse(localStorage.getItem("MovieTheatrData")).avalibleMovieTheatersForEachMovie[MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"].cordinates ||[40.2975813454084, -79.50509166222278] ,
       street : JSON.parse(localStorage.getItem("MovieTheatrData")).avalibleMovieTheatersForEachMovie[MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"].street ||'5280 Old Rte 30, Greensburg' ,
@@ -1047,6 +1050,8 @@ function CreatingSeatsFunction(){
       movieALLdata : MovieData
     }
     
+    console.log('newDetailedMovieTicketsOBject')
+    console.log(newDetailedMovieTicketsOBject)
     
     if (!indexesOfTakenSeats.includes(seatId) && !indexesOfYourSeats.includes(seatId) ) {
       indexesOfYourSeats.push(seatId)
@@ -1065,24 +1070,31 @@ function CreatingSeatsFunction(){
     else {console.log("Seat is taken")}    
   }
   let globalIndex = 0
-
+  let globalColumn = 0
   return <>
-  <section className="Seats-section mt-20  grid gap-25 justify-center " style={{gridAutoFlow : "column"}}>
+  <section className='rotate-90 md:rotate-0 transition-transform duration-500 h-[1400px]'>
+
+    <section className="SelectingASeat-section flex flex-col items-center ">
+      <h1 className="text-5xl text-white flex">Select a seat</h1>
+      <div className="screen w-6/12 h-80 bg-white mt-10 border-8 border-white  shadow-[0_0_40px_10px_rgba(255,255,255,0.4)]  transition-all duration-300"></div>
+    </section>
+  <section className="Seats-section mt-20  grid gap-25 justify-center  " style={{gridAutoFlow : "column"}}>
     {AllSeats.map((section , index) => (
       <ul className="oneDividentOfsection grid grid-flow-col gap-1 w-fit" key={index}>
         {section.map((column , columnIndex) => {
-                const range = Array.from({ length: column }, (_, i) => {
-                  globalIndex += 1;
-                  return globalIndex;
-                });
-          return <ul key={columnIndex} className="grid ">
+          globalColumn ++
+          const range = Array.from({ length: column }, (_, i) => {
+            globalIndex += 1;
+            return globalIndex;
+          });
+          return <ul key={globalColumn} id={columnIndex} className="grid transform  ">
             {range.map((seat, seatIndex) => {
-            indexCounter++; // Move inside JSX
-            return (
-              <li  id={indexCounter} onClick={(e) => {choosingSeatFunction(e)}} key={indexCounter} 
-              className={`w-20 h-20 bg-red-600 m-2  text-5xl grid place-items-center
-                ${indexesOfYourSeats.includes(indexCounter) ? "bg-yellow-500 text-black" : "bg-red-600"}
-                ${indexesOfTakenSeats.includes(indexCounter) ? "bg-white cursor-default" : "bg-red-600 cursor-pointer "}`}>
+              indexCounter++; // Move inside JSX
+              return (
+                <li data-column={globalColumn}  id={indexCounter} onClick={(e) => {choosingSeatFunction(e)}} key={indexCounter} 
+                className={`w-20 h-20 bg-red-600 m-2  text-5xl grid place-items-center
+                  ${indexesOfYourSeats.includes(indexCounter) ? "bg-yellow-500 text-black" : "bg-red-600"}
+                  ${indexesOfTakenSeats.includes(indexCounter) ? "bg-white cursor-default" : "bg-red-600 cursor-pointer "}`}>
                 {indexCounter}
               </li>
             );
@@ -1098,9 +1110,10 @@ function CreatingSeatsFunction(){
       <button onClick={() => {globalChangePage("PayingPage")}} className="mt-5 ml-10 text-4xl  pl-3 pr-3 rounded-full bg-red-600 text-white cursor-pointer">Pay</button>
     </div>
     <div className="YourTicketsLogoButton " onClick={() => {globalChangePage("PayingPage")}}>
-      <button className="w-30 h-30 rounded-full bg-red-600 fixed cursor-pointer bottom-30 right-20 "><img className="w-fit rounded-full  border-black" src={StarLightTicketRedLogo} alt="" /></button>
-      <button className="w-16 h-16 rounded-full bg-white fixed cursor-pointer bottom-52 right-16 text-red-600 text-3xl font-bold">{JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON")).length}</button>
+      <button className="w-30 h-30 rounded-full bg-red-600 fixed cursor-pointer bottom-70 right-20 "><img className="w-fit rounded-full  border-black" src={StarLightTicketRedLogo} alt="" /></button>
+      <button className="w-16 h-16 rounded-full bg-white fixed cursor-pointer bottom-86 right-16 text-red-600 text-3xl font-bold">{JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON")).length}</button>
     </div>
+  </section>
   </>
 }
 
@@ -1116,8 +1129,8 @@ function BuyingPage(){
     const zoomLevel = 18; // Zoom level
 
     return (
-      <div className={`w-screen ${mapSize ? "h-screen" : "h-96" } mb-30`} onClick={() => (setMapSize(true))} > {/* Tailwind styling for the map container */}
-      <button onClick={(event) => {setMapSize(false) , event.stopPropagation()}} className={`w-40 h-40 bg-white ${mapSize ? "visible" : 'hidden'}`} >X</button>
+      <div className={`w-full relative z-0 ${mapSize ? "h-screen" : "h-96" } mb-30`} onClick={() => (setMapSize(true))} > {/* Tailwind styling for the map container */}
+      <button onClick={(event) => {setMapSize(false) , event.stopPropagation()}} className={`absolute z-10 left-20 w-20 h-20 rounded-full bg-red-500  ${mapSize ? "visible" : 'hidden'}`} >X</button>
         <MapContainer center={position} zoom={zoomLevel} scrollWheelZoom={false} className="w-full h-full" >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -1132,14 +1145,15 @@ function BuyingPage(){
   }
 
 
+
     document.title = "Buying Page"
     return<>
-    <div className="BuyingPageAll-div bg-black pt-30">
+    <div className="BuyingPageAll-div bg-black pt-30 w-fit ">
     <HeaderJSX />
-    <section className="buyingPageMovieInfoAndPoster-section pl-10 pr-10 grid grid-cols-2">
+    <section className="buyingPageMovieInfoAndPoster-section h-auto md:h-150  pl-10 pr-10 grid grid-rows-2  md:grid-cols-2">
         <div className="MoviePoster-div ">
-            <img src={MovieData.Poster} alt=""  className="pl-10"/>
-            <h1 className="text-white text-5xl pt-2 ">{MovieData.Title}</h1>
+            <img src={MovieData.Poster} alt=""  className="pl-40 "/>
+            <h1 className="text-white text-5xl pt-2 pl-40 ">{MovieData.Title}</h1>
         </div>
         <div className="MovieInfo-div">
             <div className="AgeRestriction-div flex items-center pb-3 ">
@@ -1170,13 +1184,11 @@ function BuyingPage(){
         </div>
     </section>
     <section className="ChoosingTheatrInMapSection mt-30 pl-10 pr-10 ">
+      
       <ChoosingTheatrInMapButtonFunction />
         <MapComponent />
     </section>
-    <section className="SelectingASeat-section flex flex-col items-center mt-10">
-      <h1 className="text-5xl text-white flex">Select a seat</h1>
-      <div className="screen w-6/12 h-80 bg-white mt-10 border-8 border-white  shadow-[0_0_40px_10px_rgba(255,255,255,0.4)]  transition-all duration-300"></div>
-    </section>
+
 
     <CreatingSeatsFunction />
     <FooterJSX />
