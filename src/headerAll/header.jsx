@@ -16,18 +16,26 @@ function HeaderJSX(){
                 </li>
             </div>
             <div className="leftHeader-div flex gap-10">
-                <button class="btn" onClick={() => {globalChangePage("MainPage")}}>HOME </button>
-                <button class="btn" onClick={() => {globalChangePage("MainPage")}}>TICKET </button>
-                <button class="btn" onClick={() => {globalChangePage("MainPage")}}>ABOUT US </button>
-                <button class="btn" onClick={() => {globalChangePage("MainPage")}}>SEARCH MOVIES</button>
                 
-                <div
+                <button className="btn" onClick={() => {globalChangePage("PayingPage")}}>YOUR TICKETS </button>
+                <button className="btn" onClick={() => {globalChangePage("MainPage")}}>ABOUT US </button>
+                <button className="btn" onClick={() => {globalChangePage("MainPage")}}>SEARCH MOVIES</button>
+                <button className="signUp-button">
+    Sign up
+    <div className="arrow-wrapper">
+        <div className="arrow"></div>
+
+    </div>
+                </button>
+          
+                
+                <div onClick={() => {globalChangePage("LoginPage")}}
   aria-label="User Login Button"
-  tabindex="0"
+  tabIndex="0"
   role="button"
-  class="user-profile"
+  className="user-profile"
 >
-  <div class="user-profile-inner">
+  <div className="user-profile-inner">
     <svg
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

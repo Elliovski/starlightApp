@@ -3,6 +3,7 @@ import pageData from "./myJSON.json"
 import MainPage from "./mainPageStaright/mainPage"
 import BuyingPage from "./BuyingAll/BuyingPage"
 import PayingPage from "./payingAll/payingAll"
+import LoginPage from "./LoginAll/login"
 //import movieTheatrDataFunction from "./MovieTheaters"
 
 let globalChangePage ; // first decleare it so we can export it globally
@@ -62,7 +63,8 @@ function App() {
   const pages = {
     MainPage: MainPage, //this is component . You cant use string as component
     BuyingPage: BuyingPage,
-    PayingPage : PayingPage
+    PayingPage : PayingPage,
+    LoginPage : LoginPage
   }; // we use this to see which compenent the PageComponent becomes
 
 
