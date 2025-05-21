@@ -2,8 +2,17 @@ import StarLightTicketRedLogo from "../ImagesAll/Manual - Copy.png"
 import "./header.css"
 import SearchBar from "./Main Search/Searchbar"
 import { globalChangePage } from "../App"
+import { useState } from "react"
+
+
+
 
 function HeaderJSX(){
+
+
+  let [CurrentUserData ,ChangeCurrentUserData] = useState(JSON.parse(localStorage.getItem("CurrentUserDataJSOn")) || [])
+
+
     return <header className="aaaa w-full screen h-20 bg-[var(--color-signature)] fixed top-0 z-20">
         <ul className="flex items-center ">
             <div className="rightHeader-div flex">
@@ -12,7 +21,7 @@ function HeaderJSX(){
                 </li>
                 
                 <li>
-                    <button className="w-100 h-20  cursor-pointer text-3xl text-black"onClick={() => {globalChangePage("MainPage")}}>STARLIGHT TICKET</button>
+                    <button className="w-100 h-20  cursor-pointer text-3xl text-black hover:text-white duration-500"onClick={() => {globalChangePage("MainPage")}}>STARLIGHT TICKET</button>
                 </li>
             </div>
             <div className="leftHeader-div flex gap-10">
@@ -20,20 +29,20 @@ function HeaderJSX(){
                 <button className="btn" onClick={() => {globalChangePage("PayingPage")}}>YOUR TICKETS </button>
                 <button className="btn" onClick={() => {globalChangePage("MainPage")}}>ABOUT US </button>
                 <button className="btn" onClick={() => {globalChangePage("MainPage")}}>SEARCH MOVIES</button>
-                <button className="signUp-button">
+                {CurrentUserData ?"" : (<button className="signUp-button">
     Sign up
     <div className="arrow-wrapper">
         <div className="arrow"></div>
 
     </div>
-                </button>
+                </button>)}
           
                 
                 <div onClick={() => {globalChangePage("LoginPage")}}
   aria-label="User Login Button"
   tabIndex="0"
   role="button"
-  className="user-profile"
+  className="user-profile left-0"
 >
   <div className="user-profile-inner">
     <svg
@@ -47,7 +56,7 @@ function HeaderJSX(){
         ></path>
       </g>
     </svg>
-    <p>Log In</p>
+    <p>{CurrentUserData ? "" : "Log in"}</p>
   </div>
                 </div>
             </div>

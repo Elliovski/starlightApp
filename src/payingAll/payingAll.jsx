@@ -8,7 +8,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css"; // Import Leaflet styles
 
 function PayingPage(){
-  //localStorage.removeItem('boughtDetailedMovieTicketsData')
+  localStorage.removeItem('boughtDetailedMovieTicketsData')
   
   
   
@@ -28,7 +28,25 @@ function PayingPage(){
   let [indexesOfTakenSeats , changeIndexesOfTakenSeat ] = useState((movieTheatrData["avalibleMovieTheatersForEachMovie"][MovieData["Title"]][String(JSON.parse(localStorage.getItem("chosenCinemachosenCinemaJSON"))) || "AMC Westmoreland 15"]["indexesOfTakenSeats"])) || []
   let [detailedMovieTicketsData ,ChangedetailedMovieTicketsData] = useState(JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON")) || [])
   let [boughtDetailedMovieTicketsData ,ChangeBoughtetailedMovieTicketsData] = useState(JSON.parse(localStorage.getItem("boughtDetailedMovieTicketsData")) || [])
-  
+  let [AllUserData ,ChangeAllUserData] = useState(JSON.parse(localStorage.getItem("AllUserDataJSOn")) || [])
+  let [CurrentUserData ,ChangeCurrentUserData] = useState(JSON.parse(localStorage.getItem("CurrentUserDataJSOn")) || [])
+
+  useEffect(() => {
+    if (CurrentUserData) {
+      localStorage.setItem("CurrentUserDataJSOn", JSON.stringify(CurrentUserData));
+    }
+    console.log('CurrentUserData')
+    console.log(CurrentUserData)
+  }, [CurrentUserData]);
+
+  useEffect(() => {
+    if (AllUserData) {
+      localStorage.setItem("AllUserDataJSOn", JSON.stringify(AllUserData));
+    }
+    console.log('AllUserData')
+    console.log(AllUserData)
+  }, [AllUserData]); // Runs when movieTheatrData changes
+
   useEffect(() => {
     if (movieTheatrData) {
       localStorage.setItem("MovieTheatrData", JSON.stringify(movieTheatrData));
@@ -64,8 +82,18 @@ function PayingPage(){
             
     }
     function buyAllTickets(){
+      const updatedUserData = { ...CurrentUserData , boughtTickets:[...(CurrentUserData.boughtTickets || []),...detailedMovieTicketsData] };
+      if (!Array.isArray(updatedUserData.boughtTickets)) {
+        updatedUserData.boughtTickets = [];
+      }
 
-      ChangeBoughtetailedMovieTicketsData((prev) => [...prev, ...detailedMovieTicketsData])
+      
+
+      let newAllUserData = AllUserData.map(UserData => updatedUserData.id == UserData.id ? updatedUserData : UserData)
+      ChangeCurrentUserData(updatedUserData)
+      ChangeAllUserData(newAllUserData)
+
+      //ChangeBoughtetailedMovieTicketsData((prev) => [...prev, ...detailedMovieTicketsData])
       ChangedetailedMovieTicketsData([])
       changeIndexsesOfYourSeat([])
       const newlyBoughtSeatIds = detailedMovieTicketsData.map(ticket => ticket.seatId);
@@ -138,7 +166,7 @@ function PayingPage(){
     </div>
 
     <div className="ticketAll-div grid gap-7">
-    {(stateOfSwitch === "Cart" ? detailedMovieTicketsData : boughtDetailedMovieTicketsData).map((detailedMovieData, index) => (
+    {(stateOfSwitch === "Cart" ? detailedMovieTicketsData : CurrentUserData.boughtTickets).map((detailedMovieData, index) => (
       <div className="ticketContainer cursor-default flex" key={index}>
         <div className="ticket ml-10" key={index}>
         <div className="ticket-left">
@@ -237,7 +265,7 @@ function PayingPage(){
           <input type="number"  placeholder="..." className="text-white h-20 w-60 border-b-2 text-5xl pl-5 " style={{outline : "none",}} />
         </div>
         <input type="text"  placeholder="Zip Code" className="text-white h-20 w-12/12 border-b-2 text-5xl pl-5 " style={{outline : "none",}} />
-      <button className="bg-red-700 text-white text-5xl rounded-full transition-colors duration-300 p-3 hover:bg-red-600" onClick={() => {buyAllTickets()}}>Purchase</button>
+      <button className="bg-red-700 text-white text-5xl rounded-full transition-colors duration-300 p-3 hover:bg-red-600" onClick={() => {CurrentUserData ? buyAllTickets() : globalChangePage("LoginPage")}}>Purchase</button>
       </ol>
     </section>
     <FooterJSX />

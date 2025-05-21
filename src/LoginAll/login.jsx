@@ -4,9 +4,16 @@ import HeaderJSX from "../headerAll/header";
 import FooterJSX from "../FooterAll/Footer";
 
 function LoginPage() {
+    //localStorage.removeItem('AllUserDataJSOn')
+    //localStorage.removeItem("CurrentUserDataJSOn")
 
-    let [AllUserData ,ChangeAllUserData] = useState(JSON.parse(localStorage.getItem("AllUserDataJSOn")) || [])
+
     let [CurrentUserData ,ChangeCurrentUserData] = useState(JSON.parse(localStorage.getItem("CurrentUserDataJSOn")) || [])
+    let [AllUserData ,ChangeAllUserData] = useState(() => {
+    const data = JSON.parse(localStorage.getItem("AllUserDataJSOn"));
+    return Array.isArray(data) ? data : [];
+});
+
     let [userName ,setUserName] = useState('')
     let [userEmail ,setUserEmail] = useState('')
     let [UserPassword ,setUserPassword] = useState('')
@@ -15,6 +22,7 @@ function LoginPage() {
     console.log(AllUserData)
     console.log("CurrentUserData")
     console.log(CurrentUserData)
+
 
     useEffect(() => {
         if (AllUserData) {
@@ -32,13 +40,48 @@ function LoginPage() {
       }, [CurrentUserData]); // Runs when movieTheatrData changes
 
 
-      function signInButtonFunction(){
+function signInButtonFunction(e) {
+    e.preventDefault();
+
+    if (!userName || !userEmail || !UserPassword) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    const existingUser = AllUserData.find(
+        user => user.newUserEmail === userEmail
+    );
+
+    if (existingUser) {
+        alert("User already exists. Please log in instead.");
+        return;
+    }
+
+    const newUser = {
+        newUserName: userName,
+        newUserEmail: userEmail,
+        newUserPassword: UserPassword,
+        id: Date.now(),
+        boughtTickets: []
+    };
+
+    ChangeCurrentUserData(newUser);
+    ChangeAllUserData(prev => [...prev, newUser]);
+}
+
+      function logInButtonFunction(e){
+        e.preventDefault()
         
         
-        
-          let newUser = { newUserName : userName , newUserEmail : userEmail , newUserPassword : UserPassword , id : Date.now()}
-          ChangeCurrentUserData(newUser)
-          ChangeAllUserData(prev => [...prev, newUser])
+        let foundUserEmail = userEmail
+        let foundUserPassword = UserPassword
+          let foundUser = AllUserData.find(wantedUser => foundUserEmail == wantedUser.newUserEmail && foundUserPassword == wantedUser.newUserPassword  )
+        if (foundUser){
+            ChangeCurrentUserData(foundUser)
+        }
+        else {alert(foundUser)}
+          
+          
       }
     return (
         <div className="LoginPag-All  bg-black">
@@ -56,7 +99,7 @@ function LoginPage() {
                                 <form className="flip-card__form" action="">
                                     <input className="flip-card__input" name="email" placeholder="Email" type="email" onChange={(e) => setUserEmail(e.target.value)} />
                                     <input className="flip-card__input" name="password" placeholder="Password" type="password" onChange={(e) => setUserPassword(e.target.value)} />
-                                    <button className="flip-card__btn" >Let's go!</button>
+                                    <button className="flip-card__btn" onClick={(e) => logInButtonFunction(e)  } >Log in !</button>
                                 </form>
                             </div>
                             <div className="flip-card__back">
@@ -65,7 +108,7 @@ function LoginPage() {
                                     <input className="flip-card__input" id="input-name-id" placeholder="Name" type="text" onChange={(e) => setUserName(e.target.value)} />
                                     <input className="flip-card__input" id="input-email-id" name="email" placeholder="Email" type="email" onChange={(e) => setUserEmail(e.target.value)} />
                                     <input className="flip-card__input" id="input-password-id" name="password" placeholder="Password" type="password" onChange={(e) => setUserPassword(e.target.value)} />
-                                    <button className="flip-card__btn" onClick={(e) => {signInButtonFunction()}}>Confirm!</button>
+                                    <button className="flip-card__btn" onClick={(e) => {signInButtonFunction(e)}}>Sign in !</button>
                                 </form>
                             </div>
                         </div>
