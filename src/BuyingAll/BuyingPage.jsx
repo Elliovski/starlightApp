@@ -12,6 +12,7 @@ import StarLightTicketRedLogo from "../ImagesAll/Manual - Copy.png"
 
 
 
+function BuyingPage(){
 let storedData = localStorage.getItem("PageData")
 
 
@@ -23,14 +24,9 @@ console.log(MovieData)
 
 
 
-let globalChangeYourTicketId;
 let globalChangeDetailedMovieData;
-
-
-
-
-
-
+let globalChangeYourTicketId;
+  
 function ChoosingTheatrInMapButtonFunction(){
   
   
@@ -1111,7 +1107,7 @@ function CreatingSeatsFunction(){
     </div>
     <div className="YourTicketsLogoButton " onClick={() => {globalChangePage("PayingPage")}}>
       <button className="w-30 h-30 rounded-full bg-red-600 fixed cursor-pointer bottom-70 right-20 "><img className="w-fit rounded-full  border-black" src={StarLightTicketRedLogo} alt="" /></button>
-      <button className="w-16 h-16 rounded-full bg-white fixed cursor-pointer bottom-86 right-16 text-red-600 text-3xl font-bold">{JSON.parse(localStorage.getItem("detailedMovieTicketsDataJSON")).length}</button>
+      <button className="w-16 h-16 rounded-full bg-white fixed cursor-pointer bottom-86 right-16 text-red-600 text-3xl font-bold">{detailedMovieTicketsData.length}</button>
     </div>
   </section>
   </>
@@ -1119,7 +1115,15 @@ function CreatingSeatsFunction(){
 
 
 
-function BuyingPage(){
+
+
+
+
+
+  useEffect(() => {
+    const pageData = JSON.parse(localStorage.getItem("PageData"));
+    console.log("BuyingPage loaded with movie:", pageData.movie);
+  }, []);
 
   let [mapSize , setMapSize] = useState(false)
   function MapComponent() {
@@ -1195,5 +1199,5 @@ function BuyingPage(){
     </div>
     </> 
 }
-export { globalChangeDetailedMovieData}
+
 export default BuyingPage  ;

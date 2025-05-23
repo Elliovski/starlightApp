@@ -16,7 +16,7 @@ function App() {
   
 
 
-  let [page , changePage] = useState("MainPage") //by default , Our page data is "MainPage" . We use this data similar to JSON
+  
   let [pageData, setPageData] = useState(() => {
     return JSON.parse(localStorage.getItem("PageData")) || { pageJSOn: "MainPage", movie: null ,
      };
@@ -29,28 +29,21 @@ function App() {
   
 
   function StorePageData(page) {
-    setPageData((prevData) => {
-      const updatedData = { ...prevData, pageJSOn: page };
-      setPageData(updatedData)
-      localStorage.setItem("PageData", JSON.stringify(updatedData)); // Save to localStorage
-      return updatedData;
-    })
-  
+  setPageData((prevData) => {
+    const updatedData = { ...prevData, pageJSOn: page };
+    localStorage.setItem("PageData", JSON.stringify(updatedData));
+    return updatedData;
+  });
+}
 
+function StoreMovieData(movie) {
+  setPageData((prevData) => {
+    const updatedData = { ...prevData, movie };
+    localStorage.setItem("PageData", JSON.stringify(updatedData));
+    return updatedData;
+  });
+}
 
-  }
-  
-
-  function StoreMovieData(movie) {
-    
-    setPageData((prevData) => {
-      const updatedData = { ...prevData, movie };
-      localStorage.setItem("PageData", JSON.stringify(updatedData)); // Save to localStorage
-      console.log("Updated PageData.movie:", movie);
-
-      return updatedData;
-      
-    })}
 
     
       
