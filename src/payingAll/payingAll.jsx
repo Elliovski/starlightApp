@@ -6,6 +6,7 @@ import { useState , useEffect} from "react";
 import { MapContainer, TileLayer, Marker, Popup , useMap} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css"; // Import Leaflet styles
+import LoginPage from "../LoginAll/login";
 
 function PayingPage(){
   localStorage.removeItem('boughtDetailedMovieTicketsData')
@@ -134,8 +135,18 @@ function PayingPage(){
       }
     
 
-
     let [stateOfSwitch , changeStateOfSwitch ] = useState("Cart")
+    function pressCartButton(){
+      if (CurrentUserData){
+        if(stateOfSwitch === "Cart")
+          changeStateOfSwitch("Owned")
+        else {
+          changeStateOfSwitch("Cart")
+        }
+      }
+      else {globalChangePage("LoginPage")}
+
+    }
     
 
     function RecenterMap({coordinates}){
@@ -159,9 +170,9 @@ function PayingPage(){
     <div className="PayingPage-div bg-black pt-30">
     <HeaderJSX />
     <div className="switchOfPage-div flex items-center justify-center  ">
-      <div className={`buttonContainer-div  rounded-full  cursor-pointer transition-all duration-500 ${stateOfSwitch === "Cart" ? "pl-7 bg-white" : "bg-red-600 pr-10 "}`}>
-        <button onClick={() => {stateOfSwitch == "Cart" ? changeStateOfSwitch("Owned") : changeStateOfSwitch ("Cart")}} 
-        className={`SwitchOfPage rounded-full text-1xl p-2  ${stateOfSwitch === "Cart" ? "bg-red-600 text-white" : "bg-white text-black"}`}>{stateOfSwitch}</button>
+      <div className={`buttonContainer-div mb-5  rounded-full   cursor-pointer transition-all duration-500 ${stateOfSwitch === "Cart" ? "pl-7 bg-white" : "bg-red-600 pr-10 "}`}>
+        <button  onClick={() => {pressCartButton()}} 
+        className={`SwitchOfPage  rounded-full text-1xl p-2  ${stateOfSwitch === "Cart" ? "bg-red-600 text-white" : "bg-white text-black"}`}>{stateOfSwitch}</button>
       </div>
     </div>
 
@@ -188,7 +199,7 @@ function PayingPage(){
       <div className="buttonsForTicket-div flex flex-col justify-center pl-2">
       {stateOfSwitch === "Cart" ? (
       <>
-        <button onClick={() => {globalChangePage("BuyingPage") , globalStoreMovieData(detailedMovieData.movieALLdata)}} className="getMore-button bg-green-700 hover:bg-green-600 transition duration-300 w-fit cursor-pointer pl-5 pr-5 pt-2 pb-2 rounded-full text-1xl text-white">Get More</button>,
+        <button onClick={() => {globalChangePage("BuyingPage") , globalStoreMovieData(detailedMovieData.movieALLdata)}} className="getMore-button bg-green-700 hover:bg-green-600 transition duration-300 w-fit cursor-pointer pl-5 pr-5 pt-2 pb-2 rounded-full text-1xl text-white ">Get More</button>
         <button onClick={() => {removeFromJson(detailedMovieData.seatId)}} className="romove-button getMore-button bg-red-700 hover:bg-red-600 transition duration-300 cursor-pointer pl-5 pr-5 pt-2 pb-2 rounded-4xl text-1xl text-white">Remove ticket</button>
       </>
       )
@@ -200,26 +211,26 @@ function PayingPage(){
 
 
 
-    <div className="moreInfoDiv bg-black/10  fixed  top-0 left-0 p-20 w-screen h-screen flex justify-center items-center" style={{ visibility: visibilityOfDetailedInfoPage ? "visible" : "hidden" }} 
+    <div className="moreInfoDiv bg-black/10  fixed  top-0 left-0 p-20 w-screen h-screen flex flex-col sm:flex-row  sm:justify-center sm:items-center" style={{ visibility: visibilityOfDetailedInfoPage ? "visible" : "hidden" }} 
     onClick={() => setvisibilityOfDetailedInfoPage(false)}>
     <div className="moreInfoDivContainer relative bg-red-600 w-300 h-150 p-10 " onClick={(e) => {handleChildEventClick(e)}}>
       <div className="upperInfoDiv flex   gap-10">
-        <img src={`${iButtonInfo.Poster}`} alt="" className="w-2/12 h-5/12" />
+        <img src={`${iButtonInfo.Poster}`} alt="" className="w-2/12 auto" />
         <div className="movieInfo ">
-            <p className="text-5xl text-white">{iButtonInfo.Title}</p>
-            <p className="text-2xl text-white">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-5xl text-white">{iButtonInfo.Title}</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">
               {iButtonInfo?.movieALLdata?.Runtime || "Loading..."}
             </p>
-            <p className="text-2xl text-white">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">
               {iButtonInfo?.movieALLdata?.Released || "Loading..."}
             </p>
-            <p className="text-2xl text-white">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">
               {iButtonInfo?.movieALLdata?.Rated || "Loading..."}
             </p>
-            <p className="text-2xl text-white">{iButtonInfo.cinema}</p>
-            <p className="text-2xl text-white">Column {iButtonInfo.column}</p>
-            <p className="text-2xl text-white">Seat : {iButtonInfo.seatId}</p>
-            <p className="text-2xl text-white">{iButtonInfo.street}</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">{iButtonInfo.cinema}</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">Column {iButtonInfo.column}</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">Seat : {iButtonInfo.seatId}</p>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white">{iButtonInfo.street}</p>
             <div className="ticket-perforationIButton" ></div>
         </div>
           </div>
@@ -231,7 +242,7 @@ function PayingPage(){
     center={iButtonInfo.coordinates}
     zoom={18}
     scrollWheelZoom={true}
-    className="w-11/12 h-64"
+    className="hidden sm:block w-11/12 h-64"
   >
     <TileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -256,18 +267,58 @@ function PayingPage(){
       ))}
     </div>
     
-    <section className={`CredicartInformation-section flex flex-col items-center mt-20 ${stateOfSwitch === "Cart" ? "visible" : "hidden"}`}>
-      <h1 className="text-5xl text-white flex">Payment</h1>
-      <ol className="creditCardInfo-ol mt-20 flex flex-col gap-20 items-center">
-        <input type="number"  placeholder="Card Number" className="text-white h-20 w-12/12 border-b-2 text-5xl pl-5 " style={{outline : "none",}} />
-        <div className="flex bg-red">
-          <input type="number"  placeholder="MM/YY" className="text-white h-20 w-1xl mr-10 border-b-2 text-5xl pl-5 " style={{outline : "none",}} />
-          <input type="number"  placeholder="..." className="text-white h-20 w-60 border-b-2 text-5xl pl-5 " style={{outline : "none",}} />
-        </div>
-        <input type="text"  placeholder="Zip Code" className="text-white h-20 w-12/12 border-b-2 text-5xl pl-5 " style={{outline : "none",}} />
-      <button className="bg-red-700 text-white text-5xl rounded-full transition-colors duration-300 p-3 hover:bg-red-600" onClick={() => {CurrentUserData ? buyAllTickets() : globalChangePage("LoginPage")}}>Purchase</button>
-      </ol>
-    </section>
+
+      <section className={`add-card page flex  justify-center ${stateOfSwitch === "Cart" ? "visible" : "hidden"}`} >
+        <form className="form ">
+          <label htmlFor="name" className="label">
+            <span className="title">Card holder full name</span>
+            <input
+              className="input-field"
+              type="text"
+              name="input-name"
+              title="Input title"
+              placeholder="Enter your full name"
+            />
+          </label>
+          <label htmlFor="serialCardNumber" className="label">
+            <span className="title">Card Number</span>
+            <input
+              id="serialCardNumber"
+              className="input-field"
+              type="number"
+              name="input-name"
+              title="Input title"
+              placeholder="0000 0000 0000 0000"
+            />
+          </label>
+          <div className="split">
+            <label htmlFor="ExDate" className="label">
+              <span className="title">Expiry Date</span>
+              <input
+                id="ExDate"
+                className="input-field"
+                type="text"
+                name="input-name"
+                title="Expiry Date"
+                placeholder="01/23"
+              />
+            </label>
+            <label htmlFor="cvv" className="label">
+              <span className="title"> CVV</span>
+              <input
+                id="cvv"
+                className="input-field"
+                type="number"
+                name="cvv"
+                title="CVV"
+                placeholder="CVV"
+              />
+            </label>
+          </div>
+          <input className="checkout-btn" type="button" value="Purchase" onClick={() => {CurrentUserData ? buyAllTickets() : globalChangePage("LoginPage")}}/>
+        </form>
+      </section>
+
     <FooterJSX />
     </div>)
 

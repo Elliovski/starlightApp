@@ -1,93 +1,203 @@
 .ticket {
-    display: flex;
-    background-color: #d61212;
-    color: white;
-    width: 490px;
-    max-height: 168px;
+  display: flex;
+  background-color: #d61212;
+  color: white;
+  width: 490px;
+  max-height: 168px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.ticket-left img {
+  width: 105px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ticket-right {
+    padding: 14px;
+    flex: 0.935;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   }
-  
-  .ticket-left img {
-    width: 105px;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .ticket-right {
-      padding: 14px;
-      flex: 0.935;
-      position: relative;
-    }
-  .ticket-right p {
-    font-size: 12px;
-  }
+.ticket-right p {
+  font-size: 12px;
+}
 
-    
-  .ticket-details {
-    display: flex;
-    justify-content: space-between;
-    max-width: 225px;
-    margin: 8px 0;
-  }
   
-  .detail {
-    background-color: white;
-    color: black;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    min-width: 56px;
-    font-size: 11px;
-  }
-  
-  .ticket-perforation {
-    position: absolute;
-    top: 0;
-    right: 100px;
-    width: 2px;
-    height: 100%;
-    background: repeating-linear-gradient(
-      to bottom,
-      white,
-      white 5px,
-      transparent 5px,
-      transparent 10px
-    );
-  }
+.ticket-details {
+  display: flex;
+  justify-content: space-between;
+  max-width: 225px;
+  margin: 8px 0;
+}
 
-  .ticket-perforationIButton {
-    position: absolute;
-    top: 0;
-    right: 100px;
-    width: 2px;
-    height: 100%;
-    background: repeating-linear-gradient(
-      to bottom,
-      white,
-      white 5px,
-      transparent 5px,
-      transparent 10px
-    );
-  }
+.detail {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 56px;
+  font-size: 11px;
+}
+
+.ticket-perforation {
+  position: absolute;
+  top: 0;
+  right: 100px;
+  width: 2px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    white,
+    white 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+.ticket-perforationIButton {
+  position: absolute;
+  top: 0;
+  right: 100px;
+  width: 2px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    white,
+    white 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+.ticket-tab {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  background-color: #d61212;
   
-  .ticket-tab {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    background-color: #d61212;
-    
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    font-size: 14px;
-    
-  }
-  .creditCardInfo-ol ::placeholder {
-    color: white;
-    font-size: 30px;
-  }
-  .creditCardInfo-ol ::-webkit-inner-spin-button ,
-  .creditCardInfo-ol ::-webkit-outher-spin-button {
-    -webkit-appearance: none;
-  }
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 14px;
+  
+}
+.creditCardInfo-ol ::placeholder {
+  color: white;
+  font-size: 30px;
+}
+.creditCardInfo-ol ::-webkit-inner-spin-button ,
+.creditCardInfo-ol ::-webkit-outher-spin-button {
+  -webkit-appearance: none;
+}
+
+/* From Uiverse.io by 3bdel3ziz-T */ 
+.form {
+  background: #0c0f14;
+  box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01),
+    0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09),
+    0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  
+  display: flex;
+  
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  position: relative;
+  border-radius: 25px;
+}
+.form .label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.form .label:has(input:focus) .title {
+  top: 0;
+  left: 0;
+  margin-bottom: 0px;
+  font-size: 18px;
+  color: #ffffff;
+}
+.form .label .title {
+  padding: 0 10px;
+  transition: all 300ms;
+  font-size: 12px;
+  color: #8b8e98;
+  font-weight: 600;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 10px;
+  top: 14px;
+  position: relative;
+  left: 15px;
+  background: #0c0f14;
+}
+.form .input-field {
+  width: auto;
+  height: 50px;
+  text-indent: 15px;
+  border-radius: 15px;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid #21262e;
+  transition: all 0.3s;
+  caret-color: #ffffff;
+  color: #aeaeae;
+}
+
+.form .input-field:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.form .input-field:focus {
+  border-color: #ffffff;
+}
+.form .split {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  width: 100%;
+  gap: 0px;
+}
+.form .split label {
+  width: 140px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+}
+
+.form .checkout-btn {
+  margin-top: 20px;
+  padding: 20px 0;
+  border-radius: 25px;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border: none;
+  justify-content: center;
+  fill: #fff;
+  color: #fff;
+  border: 2px solid transparent;
+  background: #a50000;
+  transition: all 200ms;
+}
+.form .checkout-btn:active {
+  scale: 0.95;
+}
+
+.form .checkout-btn:hover {
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  background: transparent;
+}

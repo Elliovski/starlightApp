@@ -41,6 +41,7 @@ function HeaderJSX(){
     return(functionValue)
 }
 const [isHovered, setIsHovered] = useState(false);
+const [isHovered1, setIsHovered1] = useState(false);
 
     return <header className=" w-full screen h-20  fixed top-0 z-20" style={{backgroundColor : "red"}} >
                 <div className={`hiddenHeadeAll-div w-screen h-screen bg-black/70 ${visibilityOfBurger ? 'visible' : "hidden"}`} onClick={() => {burgerclickFunction()}}>
@@ -76,7 +77,9 @@ const [isHovered, setIsHovered] = useState(false);
   <ul className="flex items-center justify-around">
             <div className="rightHeader-div flex">
                 <li>
-                    <button className="w-18 h-20 ml-10 cursor-pointer"onClick={() => {globalChangePage("MainPage")}}><img src={StarLightTicketRedLogo}></img></button>
+                    <button onMouseLeave={() => {setIsHovered1(false)}} onMouseEnter={() => {setIsHovered1(true)}} className="w-18 h-20 ml-10 cursor-pointer hover:bg-black p-1"onClick={() => {globalChangePage("MainPage")}}>
+                      {isHovered1 ? <img src={StarLightTicketBlackLogo} alt="" className="h-11/12 "/> : <img src={StarLightTicketRedLogo} alt="" className="h-11/12 "/>}
+                    </button>
                 </li>
                 
                 <li>
