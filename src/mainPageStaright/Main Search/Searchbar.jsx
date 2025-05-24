@@ -58,7 +58,7 @@ function SearchBar({widthOfSection ,heightOfSection}){
 
 
  
-    return <section className='flex flex-col  items-center justify-center  min-h-[100px]' >
+    return <section className='flex flex-col  items-center justify-center h-60  min-h-[100px]' >
         <div className={`bg-white items-center relative transition-all duration-500  flex flex-col focus-within:w-[60%] min-w-[400px]  h-auto rounded-l-full rounded-r-full  ${widthOfSearc ? "w-full" : 'w-20'}`}>
             <div className="upperSearch-div flex  w-full  rounded-l-full rounded-r-full">
                 <input type="text" placeholder="Search for movies" onChange={handleSearchInput} className={`searchbar w-full  pl-5  flex  focus:outline-0 placeholder:leading-none text-2xl rounded-l-full rounded-r-full`} />

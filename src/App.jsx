@@ -4,6 +4,7 @@ import MainPage from "./mainPageStaright/mainPage"
 import BuyingPage from "./BuyingAll/BuyingPage"
 import PayingPage from "./payingAll/payingAll"
 import LoginPage from "./LoginAll/login"
+import SearchPage from "./SearchPageAll/searchPage"
 //import movieTheatrDataFunction from "./MovieTheaters"
 
 let globalChangePage ; // first decleare it so we can export it globally
@@ -57,7 +58,8 @@ function StoreMovieData(movie) {
     MainPage: MainPage, //this is component . You cant use string as component
     BuyingPage: BuyingPage,
     PayingPage : PayingPage,
-    LoginPage : LoginPage
+    LoginPage : LoginPage,
+    SearchPage : SearchPage ,
   }; // we use this to see which compenent the PageComponent becomes
 
 

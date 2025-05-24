@@ -53,7 +53,7 @@ const [isHovered1, setIsHovered1] = useState(false);
                 
                 <li onClick={() => {globalChangePage("PayingPage")}}   className="border-[1px] border-l-0 border-r-0 border-white  h-14 w-full  flex items-center justify-evenly  text-2xl text-white hover:bg-black hover:text-white transition-all duration-200 "><img className="h-11/12 " src={ticketSvg} alt="" /><p className="min-w-55"> YOUR TICKETS</p></li>
                 <li onClick={() => {globalChangePage("MainPage")}}  className="border-[1px] border-l-0 border-r-0 border-white  h-14 w-full  flex items-center justify-evenly  text-2xl text-white hover:bg-black hover:text-white transition-all duration-200"><img className="h-11/12 " src={about} alt="" /><p className="min-w-55">ABOUT US</p></li>
-                <li onClick={() => {globalChangePage("MainPage")}}  className="border-[1px] border-l-0 border-r-0 border-white  h-14 w-full  flex items-center justify-evenly  text-2xl text-white hover:bg-black hover:text-white transition-all duration-200"><img className="h-11/12 " src={searcSvg} alt="" /><p className="min-w-55">SEARCH MOVIES</p></li>
+                <li onClick={() => {globalChangePage("SearchPage")}}  className="border-[1px] border-l-0 border-r-0 border-white  h-14 w-full  flex items-center justify-evenly  text-2xl text-white hover:bg-black hover:text-white transition-all duration-200"><img className="h-11/12 " src={searcSvg} alt="" /><p className="min-w-55">SEARCH MOVIES</p></li>
               </ul>
 
             </div>
@@ -90,7 +90,7 @@ const [isHovered1, setIsHovered1] = useState(false);
                 
                 <button className="btn" onClick={() => {globalChangePage("PayingPage")}}>YOUR TICKETS </button>
                 <button className="btn" onClick={() => {globalChangePage("MainPage")}}>ABOUT US </button>
-                <button className="btn" onClick={() => {globalChangePage("MainPage")}}>SEARCH MOVIES</button>
+                <button className="btn" onClick={() => {globalChangePage("SearchPage")}}>SEARCH MOVIES</button>
                 {CurrentUserData ?"" : (<button className="signUp-button">
     Sign up
     <div className="arrow-wrapper">

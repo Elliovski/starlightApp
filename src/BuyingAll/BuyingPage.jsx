@@ -57,7 +57,7 @@ const [chosenCinema, setChosenCinema] = useState(() => {
           <ul  className={`ChoosingTheatrInMap-ul ${hiddenClass == true ? "hidden" : "visible"} bg-white`}>
             <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC Westmoreland 15")}}>AMC Westmoreland 15</li>
             <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC Village 7")}}>AMC Village 7</li>
-            <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC Porter Ranch 9")}}>Third Movie Theater</li>
+            <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC Porter Ranch 9")}}>AMC Porter Ranch 9</li>
             <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC River Park Square 20")}}>AMC River Park Square 20</li>
             <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC Kent Station 14")}}>AMC Kent Station 14</li>
             <li className="p-1 border-solid border-black border-2 hover:bg-red-500 hover:text-white transition-colors duration-300" onClick={() => {changeChosenCinema("AMC Southcenter 16")}}>AMC Southcenter 16</li>

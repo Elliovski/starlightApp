@@ -82,9 +82,10 @@ let slidesPerView = handleScreensizeWidth()
                 
 
                 {movieData.map((movie, index) => (
-                    <SwiperSlide key={index} className="OneRecomendeMovie-li OneRecomendeMovie-li-js" 
+                    <SwiperSlide key={index} className="OneRecomendeMovie-li OneRecomendeMovie-li-js animate-fadeIn" 
+                    style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'backwards' }} 
                     onClick={() => {
-                         globalStoreMovieData(movie);
+                        globalStoreMovieData(movie);
                         globalChangePage("BuyingPage");  
                          }}>
                         <div className="OneRecomendeMovie-container-div card flex-col">
